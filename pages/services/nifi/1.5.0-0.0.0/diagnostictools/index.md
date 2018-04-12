@@ -16,12 +16,12 @@ The first step to diagnosing a problem is typically to take a look at the logs. 
 
 As of this writing, the best and fastest way to view and download logs is via the Mesos UI at <dcos-url>/mesos. On the Mesos front page you will see two lists: A list of currently running tasks, followed by a list of completed tasks (whether successful or failed).
 
-[<img src="service/1_Logging_All_Tasks.png" alt="mesos frontpage showing all tasks in the cluster" width="1000"/>](service/1_Logging_All_Tasks.png)
+[<img src="../service/1_Logging_All_Tasks.png" alt="mesos frontpage showing all tasks in the cluster" width="1000"/>](service/1_Logging_All_Tasks.png)
 
 
 The Sandbox link for one of these tasks shows a list of files from within the task itself. For example, here’s a sandbox view of a nifi-node-0 task from the above list:
 
-[<img src="service/2_Inside_Task.png" alt="inside task" width="1000"/>](service/2_Inside_Task.png)
+[<img src="../service/2_Inside_Task.png" alt="inside task" width="1000"/>](service/2_Inside_Task.png)
 
 If the task is based on a Docker image, this list will only show the contents of /mnt/sandbox, and not the rest of the filesystem. If you need to view filesystem contents outside of this directory, you will need to use dcos task exec or nsenter as described below under Running commands within containers.
 
