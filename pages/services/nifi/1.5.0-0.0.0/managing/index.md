@@ -347,3 +347,55 @@ The Nifi backup is taken using the Nifi toolkit. The Nifi backup will be done us
     
        Once, Step 2 is complete and the Backup has been uploaded to S3, a Sidecar Task known as Cleanup is triggered. This task cleans up/ removes the backup folder from the local Root/Mount volumes.
    [<img src="service/Cleanup.png" alt="cleanup" width="800"/>](service/Cleanup.png)
+
+
+## Nifi Toolkit Commands
+
+
+The admin toolkit contains command line utilities for administrators to support NiFi maintenance in standalone and clustered environments. These utilities include:
+
+    Notify — The notification tool allows administrators to send bulletins to the NiFi UI using the command line.
+
+    Node Manager — The node manager tool allows administrators to perform a status check on a node as well as to connect, disconnect, or remove nodes that are part of a cluster.
+
+    File Manager — The file manager tool allows administrators to backup, install or restore a NiFi installation from backup.
+
+The admin toolkit is bundled with the nifi-toolkit and can be executed with scripts found in the bin folder. Further docmentation is available at [Nifi Administration Toolkit](https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#admin-toolkit). 
+
+To execute the Nifi Administration Toolkit commands, we need to do a dcos task exec to a Nifi node, set the JAVA_HOME using the command:
+```shell
+export JAVA_HOME=$(ls -d $MESOS_SANDBOX/jdk*/jre*/) && export JAVA_HOME=${JAVA_HOME%/} && export PATH=$(ls -d $JAVA_HOME/bin):$PATH
+````
+and then run the node manager commands from $MESOS_SANDBOX/nifi-toolkit-1.5.0/bin directory:
+```shell
+
+
+To connect, disconnect, or remove a node from a cluster:
+
+node-manager.sh -d <NIFI_HOME> –b <nifi bootstrap file path>
+-o {remove|disconnect|connect|status} [-u {url list}] [-p {proxy name}] [-v]
+
+To show help:
+
+node-manager.sh -h
+
+The following are available options:
+
+    -b,--bootstrapConf <arg> Existing Bootstrap Configuration file (required)
+
+    -d,--nifiInstallDir <arg> NiFi Root Folder (required)
+
+    -h,--help Help Text (optional)
+
+    -o, --operation <arg> Operations supported: status, connect (cluster), disconnect (cluster), remove (cluster)
+
+    -p,--proxyDN <arg> Proxy or User DN (required for secured nodes doing connect, disconnect and remove operations)
+
+    -u,--clusterUrls <arg> Comma delimited list of active urls for cluster (optional). Not required for disconnecting a node yet will be needed when connecting or removing from a cluster
+
+    -v,--verbose Verbose messaging (optional)
+
+
+````
+
+
